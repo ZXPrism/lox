@@ -1,7 +1,16 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "lox"
 version = "0.1.0"
-description = "Add your description here"
+description = "PL based on the book Crafting Interpreters"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = []
+
+[project.scripts]
+
+[tool.hatch.build.targets.wheel]
+packages = ["lox"]
