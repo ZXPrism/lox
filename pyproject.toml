@@ -15,3 +15,8 @@ lox = "lox.main:entrypoint"
 
 [tool.hatch.build.targets.wheel]
 packages = ["lox"]
+
+[project.optional-dependencies]
+dev = [
+    "graphviz",
+]
