@@ -8,15 +8,17 @@ version = "0.1.0"
 description = "PL based on the book Crafting Interpreters"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "jinja2>=3.1.6",
+    "rich>=15.0.0",
+]
 
 [project.scripts]
 lox = "lox.main:entrypoint"
+gen-ast-types = "lox.scripts.gen_ast_types:entrypoint"
 
 [tool.hatch.build.targets.wheel]
 packages = ["lox"]
 
 [project.optional-dependencies]
-dev = [
-    "graphviz",
-]
+dev = ["graphviz"]

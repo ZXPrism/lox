@@ -1,0 +1,27 @@
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
+from lox.token import Token
+
+
+class Visitor(ABC):
+{% for cls in types %}
+    @abstractmethod
+    def visit_{{ cls.visit_method }}(self, expr: "{{ cls.name }}") -> object: ...
+{% endfor %}
+
+
+class {{ base_class_name }}(ABC):
+    @abstractmethod
+    def accept(self, visitor: Visitor) -> object: ...
+
+{% for cls in types %}
+@dataclass
+class {{ cls.name }}({{ base_class_name }}):
+{%- for field in cls.fields %}
+    {{ field.name }}: {{ field.type }}
+{%- endfor %}
+
+    def accept(self, visitor: Visitor) -> object:
+        return visitor.visit_{{ cls.visit_method }}(self)
+
+{% endfor %}
