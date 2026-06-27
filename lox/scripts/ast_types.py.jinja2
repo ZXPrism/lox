@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from lox.token import Token
 
 
-class Visitor(ABC):
+class {{visitor_class_name}}(ABC):
 {% for cls in types %}
     @abstractmethod
     def visit_{{ cls.visit_method }}(self, expr: "{{ cls.name }}") -> object: ...
@@ -12,7 +12,7 @@ class Visitor(ABC):
 
 class {{ base_class_name }}(ABC):
     @abstractmethod
-    def accept(self, visitor: Visitor) -> object: ...
+    def accept(self, visitor: {{visitor_class_name}}) -> object | None: ...
 
 {% for cls in types %}
 @dataclass
@@ -21,7 +21,7 @@ class {{ cls.name }}({{ base_class_name }}):
     {{ field.name }}: {{ field.type }}
 {%- endfor %}
 
-    def accept(self, visitor: Visitor) -> object:
+    def accept(self, visitor: {{visitor_class_name}}) -> object | None:
         return visitor.visit_{{ cls.visit_method }}(self)
 
 {% endfor %}

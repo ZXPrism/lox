@@ -17,12 +17,13 @@ def entrypoint(argv=None):
 
     src = template.render(
         base_class_name="Expression",
+        visitor_class_name="AstVisitor",
         types=[
             _make_type(
                 "Binary", ["Expression left", "Token operator", "Expression right"]
             ),
             _make_type("Grouping", ["Expression expression"]),
-            _make_type("Literal", ["object value"]),
+            _make_type("Literal", ["object | None value"]),
             _make_type("Unary", ["Token operator", "Expression right"]),
         ],
     )
